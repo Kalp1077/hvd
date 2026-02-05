@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine Day - Chintu</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2c0e14;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        /* --- BACKGROUND --- */
+        .background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./WhatsApp\ Image\ 2026-02-03\ at\ 6.36.24\ PM.jpeg);
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            filter: brightness(0.6);
+        }
+
+        /* --- ANIMATIONS CSS --- */
+        
+        /* 1. Falling Hearts (Infinite Loop) */
+        .falling-heart {
+            position: absolute;
+            top: -10vh;
+            font-size: 24px;
+            z-index: 5;
+            pointer-events: none;
+            /* 'infinite' makes them continue falling forever */
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(115vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 2. Firecracker Particles */
+        .firework-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: explode 1.2s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            position: relative;
+            width: 90%;
+            height: 70%;
+            max-width: 480px;
+            min-height: 420px;
+            background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+            border: 2px solid #D4AF37;
+            outline: 4px double rgba(212, 175, 55, 0.3);
+            outline-offset: 4px;
+            border-radius: 12px;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.5) inset,
+                inset 20px 20px 60px #f3f3f3,
+                inset -20px -20px 60px #ffffff;
+            
+            padding: 40px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10; 
+            overflow: hidden;
+            animation: revealContainer 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transition: all 0.5s ease;
+        }
+
+        .container.expanded {
+            min-height: 550px;
+            max-width: 500px;
+        }
+
+        @keyframes revealContainer {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px dashed #e91e63;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            color: #880e4f;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            z-index: 2;
+        }
+
+        .highlight-name {
+            font-family: 'Great Vibes', cursive;
+            color: #d50000;
+            font-size: 3.5rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            position: relative;
+            background: #fff;
+            padding: 5px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: 2px solid rgba(213, 0, 0, 0.1);
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .highlight-valentine {
+            font-family: 'Playfair Display', serif;
+            color: #D4AF37;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.8rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            width: 100%;
+            justify-content: center;
+            position: relative;
+            height: 70px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards 0.5s;
+        }
+
+        @keyframes fadeInUp { to { opacity: 1; } }
+
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            min-width: 110px;
+            z-index: 20;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            color: white;
+            box-shadow: 0 8px 20px rgba(245, 0, 87, 0.4);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 0, 87, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(245, 0, 87, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 0, 87, 0); }
+        }
+
+        .btn-no {
+            background: #fff;
+            color: #888;
+            border: 1px solid #ddd;
+            position: relative; 
+            transition: top 0.4s ease-out, left 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        /* --- SUCCESS SCREEN & IMAGE --- */
+        #success-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .emoji-avatar {
+            font-size: 80px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+            animation: wobble 2s infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .yay-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #d50000;
+            text-shadow: 1px 1px 0px #fff, 3px 3px 0px #D4AF37;
+        }
+
+        .sub-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 7px;
+            font-style: italic;
+        }
+
+        /* --- THE ROMANTIC PHOTO --- */
+        .romantic-photo {
+            width: 85%;
+            max-width: 280px;
+            height: auto;
+            padding: 10px 10px 35px 10px; 
+            background: white;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            transform: rotate(-3deg);
+            margin-bottom: 15px;
+            
+            opacity: 0;
+            animation: photoReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+        }
+
+        .romantic-photo img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border: 1px solid #eee;
+            display: block;
+        }
+
+        @keyframes photoReveal {
+            0% { opacity: 0; transform: scale(0.5) translateY(40px) rotate(-10deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(-3deg); }
+        }
+
+        .love-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            background: #880e4f;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(136, 14, 79, 0.4);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .highlight-name { font-size: 2.8rem; }
+            .highlight-valentine { font-size: 1.4rem; }
+            .yay-text { font-size: 2.5rem; }
+            .container { width: 90%; padding: 30px 20px; min-height: 350px; }
+            .romantic-photo { max-width: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Image -->
+    <div class="background-layer"></div>
+
+    <!-- Main Content Card -->
+    <main class="container" id="mainCard">
+        
+        <!-- SCREEN 1: The Proposal -->
+        <section id="proposal-screen">
+            <h1>
+                <div style="font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: #888; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase;">
+                    To My Dearest
+                </div>
+                <span class="highlight-name">Chintu,</span><br>
+                Will you be my <br>
+                <span class="highlight-valentine">Valentine</span> ??
+            </h1>
+
+            <div class="btn-group">
+                <button class="btn btn-yes" id="yesBtn" onclick="acceptValentine()">
+                    <b>Yes</b>
+                </button>
+                
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton(this)" ontouchstart="moveButton(this)" onclick="moveButton(this)">
+                    <b>No</b>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: Success with Photo -->
+        <section id="success-screen">
+            <div class="emoji-avatar">😍</div>
+            <h2 class="yay-text">Forever Yours!</h2>
+            <h3 class="sub-text">Best decision ever 😘</h3>
+            
+            <!-- THE ROMANTIC PHOTO -->
+            <div class="romantic-photo">
+                <img src="./WhatsApp Image 2026-02-05 at 7.05.46 PM.jpeg" alt="Couple with Roses">
+            </div>
+
+            <h3 class="love-text">LOVE YOU CHINTUUU...❤️</h3>
+        </section>
+    </main>
+
+    <script>
+        // --- 1. INITIAL FALLING HEARTS (Start on Load, Continue Forever) ---
+        function initFallingHearts() {
+            const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ffc0cb', '#ffffff', '#ffd700'];
+            
+            // Create initial batch
+            for (let i = 0; i < 30; i++) {
+                createHeart(colors);
+            }
+        }
+
+        function createHeart(colors) {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            
+            // Randomize Position
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize Speed (falling)
+            const duration = Math.random() * 3 + 3; // 3s to 6s
+            heart.style.animationDuration = duration + 's';
+            
+            // Randomize Size
+            const size = Math.random() * 20 + 10; 
+            heart.style.fontSize = size + 'px';
+            
+            // Randomize Color
+            heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Stagger Start
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.body.appendChild(heart);
+        }
+
+        // --- 2. CONTINUOUS FIRECRACKERS (Triggered on Click) ---
+        function launchContinuousFireworks() {
+            const colors = ['#FFD700', '#FF4500', '#FFA500', '#FFFFFF', '#FF69B4'];
+            const burstCount = 15; // How many bursts to fire
+            const intervalTime = 400; // ms between bursts (Continuous)
+            let currentBurst = 0;
+
+            const fireInterval = setInterval(() => {
+                // Create an explosion at a random location
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * (window.innerHeight * 0.8);
+                createExplosion(x, y, colors);
+
+                currentBurst++;
+
+                // Stop after 'burstCount' to prevent browser lag, 
+                // but still lasts for several seconds (15 * 0.4s = 6 seconds of fireworks)
+                if (currentBurst >= burstCount) {
+                    clearInterval(fireInterval);
+                }
+            }, intervalTime);
+        }
+
+        function createExplosion(x, y, colors) {
+            const particleCount = 30; 
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('firework-particle');
+                
+                // Random color
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Set starting position
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                
+                // Random size
+                const size = Math.random() * 6 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Calculate random direction (circle)
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50; 
+                
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                // Set CSS variables for animation
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                document.body.appendChild(particle);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    particle.remove();
+                }, 1200);
+            }
+        }
+
+        // --- LOGIC: HANDLE YES ---
+        function acceptValentine() {
+            const proposalScreen = document.getElementById('proposal-screen');
+            const mainCard = document.getElementById('mainCard');
+            
+            proposalScreen.style.display = 'none';
+            mainCard.classList.add('expanded');
+
+            // Hide the No button
+            const noBtn = document.getElementById('noBtn');
+            if(noBtn) {
+                noBtn.style.display = 'none';
+            }
+
+            const successScreen = document.getElementById('success-screen');
+            successScreen.style.display = 'flex';
+            
+            // *** TRIGGER CELEBRATION ***
+            // 1. Hearts are already falling from initFallingHearts, but let's add a fresh burst!
+            const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ffc0cb', '#ffffff', '#ffd700'];
+            for(let i=0; i<10; i++) { createHeart(colors); }
+
+            // 2. Start Continuous Firecrackers
+            launchContinuousFireworks();
+        }
+
+        // --- LOGIC: MOVING NO BUTTON ---
+        function moveButton(btn) {
+            const currentRect = btn.getBoundingClientRect();
+
+            if (btn.parentElement !== document.body) {
+                document.body.appendChild(btn);
+                btn.style.position = 'fixed';
+                btn.style.left = currentRect.left + 'px';
+                btn.style.top = currentRect.top + 'px';
+            }
+
+            void btn.offsetWidth;
+
+            const yesBtn = document.getElementById('yesBtn');
+            const yesRect = yesBtn.getBoundingClientRect();
+            
+            const bufferZone = 70;
+            const forbiddenLeft = yesRect.left - bufferZone;
+            const forbiddenRight = yesRect.right + bufferZone;
+            const forbiddenTop = yesRect.top - bufferZone;
+            const forbiddenBottom = yesRect.bottom + bufferZone;
+
+            let newLeft, newY;
+            let isOverlapping = true;
+            let attempts = 0;
+            const maxAttempts = 100; 
+
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            const maxWidth = window.innerWidth - btnWidth - 20;
+            const maxHeight = window.innerHeight - btnHeight - 20;
+
+            while (isOverlapping && attempts < maxAttempts) {
+                newLeft = Math.floor(Math.random() * maxWidth);
+                newY = Math.floor(Math.random() * maxHeight);
+
+                const inHorizontalZone = (newLeft + btnWidth > forbiddenLeft) && (newLeft < forbiddenRight);
+                const inVerticalZone = (newY + btnHeight > forbiddenTop) && (newY < forbiddenBottom);
+
+                if (inHorizontalZone && inVerticalZone) {
+                    attempts++;
+                } else {
+                    isOverlapping = false;
+                }
+            }
+
+            btn.style.left = newLeft + 'px';
+            btn.style.top = newY + 'px';
+            
+            const rotation = Math.floor(Math.random() * 30 - 15);
+            btn.style.transform = `rotate(${rotation}deg)`;
+            btn.style.zIndex = '9999';
+        }
+
+        // INITIAL LOAD: Start the hearts immediately
+        window.addEventListener('load', initFallingHearts);
+    </script>
+</body>
+</html>
