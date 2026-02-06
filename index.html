@@ -194,6 +194,7 @@
             z-index: 20;
             position: relative;
             overflow: hidden;
+            white-space: nowrap; /* Ensures text doesn't wrap weirdly */
         }
 
         .btn-yes {
@@ -477,8 +478,14 @@
             launchContinuousFireworks();
         }
 
-        // --- LOGIC: MOVING NO BUTTON ---
+        // --- LOGIC: MOVING NO BUTTON WITH TEXT CHANGE ---
         function moveButton(btn) {
+            // 1. CHANGE THE TEXT
+            const texts = ["Really???", "Think again!!", "Don't do it!!", "Yes plzz!!", "Are you sure??", "Please!"];
+            const randomText = texts[Math.floor(Math.random() * texts.length)];
+            btn.innerText = randomText;
+            
+            // 2. MOVE THE BUTTON (Existing Logic)
             const currentRect = btn.getBoundingClientRect();
 
             if (btn.parentElement !== document.body) {
@@ -488,7 +495,7 @@
                 btn.style.top = currentRect.top + 'px';
             }
 
-            void btn.offsetWidth;
+            void btn.offsetWidth; // Force reflow for transition
 
             const yesBtn = document.getElementById('yesBtn');
             const yesRect = yesBtn.getBoundingClientRect();
